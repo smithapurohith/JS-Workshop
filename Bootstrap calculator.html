@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bootstrap Calculator</title>
+
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .calculator {
+      max-width: 320px;
+      margin: 80px auto;
+      background-color: #343a40;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .display {
+      height: 60px;
+      background-color: #212529;
+      color: #0f0;
+      font-size: 24px;
+      text-align: right;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      overflow: auto;
+    }
+    .btn {
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="calculator text-white">
+  <div id="display" class="display">0</div>
+  <div class="row g-2">
+    <!-- First Row -->
+    <div class="col-3"><button class="btn btn-danger w-100" data-value="C">C</button></div>
+    <div class="col-3"><button class="btn btn-secondary w-100" data-value="/">÷</button></div>
+    <div class="col-3"><button class="btn btn-secondary w-100" data-value="*">×</button></div>
+    <div class="col-3"><button class="btn btn-secondary w-100" data-value="-">−</button></div>
+
+    <!-- Second Row -->
+    <div class="col-3"><button class="btn btn-light w-100" data-value="7">7</button></div>
+    <div class="col-3"><button class="btn btn-light w-100" data-value="8">8</button></div>
+    <div class="col-3"><button class="btn btn-light w-100" data-value="9">9</button></div>
+    <div class="col-3"><button class="btn btn-secondary w-100" data-value="+">+</button></div>
+
+    <!-- Third Row -->
+    <div class="col-3"><button class="btn btn-light w-100" data-value="4">4</button></div>
+    <div class="col-3"><button class="btn btn-light w-100" data-value="5">5</button></div>
+    <div class="col-3"><button class="btn btn-light w-100" data-value="6">6</button></div>
+    <div class="col-3" rowspan="2"><button class="btn btn-success w-100 h-100" style="height: 98px;" data-value="=">=</button></div>
+
+    <!-- Fourth Row -->
+    <div class="col-3"><button class="btn btn-light w-100" data-value="1">1</button></div>
+    <div class="col-3"><button class="btn btn-light w-100" data-value="2">2</button></div>
+    <div class="col-3"><button class="btn btn-light w-100" data-value="3">3</button></div>
+
+    <!-- Fifth Row -->
+    <div class="col-6"><button class="btn btn-light w-100" data-value="0">0</button></div>
+    <div class="col-3"><button class="btn btn-light w-100" data-value=".">.</button></div>
+  </div>
+</div>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  const display = document.getElementById('display');
+  const buttons = document.querySelectorAll('.btn');
+  let currentInput = '';
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      const value = button.getAttribute('data-value');
+
+      if (value === 'C') {
+        currentInput = '';
+        display.textContent = '0';
+      } else if (value === '=') {
+        try {
+          const result = eval(currentInput);
+          display.textContent = result;
+          currentInput = result.toString();
+        } catch {
+          display.textContent = 'Error';
+          currentInput = '';
+        }
+      } else {
+        currentInput += value;
+        display.textContent = currentInput;
+      }
+    });
+  });
+</script>
+
+</body>
+</html>

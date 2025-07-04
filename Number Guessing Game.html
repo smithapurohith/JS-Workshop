@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fun Number Guessing</title>
+  <style>
+    body { font-family: 'Verdana'; background: linear-gradient(#ffecd2, #fcb69f); text-align: center; padding: 40px; }
+    input { font-size: 20px; padding: 10px; width: 80px; text-align: center; }
+    button { font-size: 18px; padding: 10px 20px; margin-left: 10px; cursor: pointer; }
+    #result { margin-top: 20px; font-size: 22px; }
+    #score { font-size: 18px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+<h2>🎯 Guess the Number (1–100)</h2>
+<input type="number" id="guess" placeholder="?" />
+<button onclick="check()">Guess</button>
+<div id="result"></div>
+<div id="score">Score: 0</div>
+
+<script>
+  let secret = Math.floor(Math.random() * 100) + 1;
+  let attempts = 0;
+  let score = 0;
+
+  function resetGame() {
+    secret = Math.floor(Math.random() * 100) + 1;
+    attempts = 0;
+    document.getElementById('result').textContent = 'New number generated!';
+  }
+
+  function check() {
+    const guess = parseInt(document.getElementById('guess').value);
+    attempts++;
+    const result = document.getElementById('result');
+    const scoreBox = document.getElementById('score');
+
+    if (guess === secret) {
+      result.textContent = `🎉 You got it in ${attempts} tries! +${100 - attempts * 5} pts`;
+      score += (100 - attempts * 5);
+      scoreBox.textContent = `Score: ${score}`;
+      resetGame();
+    } else if (guess > secret) {
+      result.textContent = "Too high! ⬆️ Try again.";
+    } else {
+      result.textContent = "Too low! ⬇️ Try again.";
+    }
+  }
+</script>
+
+</body>
+</html>

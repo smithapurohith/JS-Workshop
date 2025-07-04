@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hangman with Hints</title>
+  <style>
+    body { font-family: monospace; background: #222; color: #eee; text-align: center; padding: 30px; }
+    #word { font-size: 2rem; letter-spacing: 10px; margin: 20px 0; }
+    button { padding: 8px; margin: 3px; background: #444; color: white; border: none; border-radius: 5px; }
+    button:hover { background: #0ff; color: #000; }
+    button:disabled { background: #666; }
+    #hint { color: #ccc; margin-bottom: 10px; font-style: italic; }
+  </style>
+</head>
+<body>
+
+<h2>🕵️‍♂️ Hangman: Guess the Word</h2>
+<div id="hint"></div>
+<div id="word">_ _ _ _ _</div>
+<div id="letters"></div>
+<div id="status"></div>
+
+<script>
+  const words = [
+    { word: 'PYRAMID', hint: 'Ancient triangular structure' },
+    { word: 'JAVASCRIPT', hint: 'Language that powers the web' },
+    { word: 'GALAXY', hint: 'Huge group of stars' },
+    { word: 'OXYGEN', hint: 'Essential gas for breathing' },
+    { word: 'ALGORITHM', hint: 'A set of instructions to solve problems' }
+  ];
+
+  const picked = words[Math.floor(Math.random() * words.length)];
+  const word = picked.word.toUpperCase();
+  let guessed = Array(word.length).fill('_');
+  let attempts = 6;
+
+  document.getElementById('word').textContent = guessed.join(' ');
+  document.getElementById('hint').textContent = `Hint: ${picked.hint}`;
+
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(l => {
+    const b = document.createElement('button');
+    b.textContent = l;
+    b.onclick = () => guess(l, b);
+    document.getElementById('letters').appendChild(b);
+  });
+
+  function guess(letter, button) {
+    button.disabled = true;
+    let found = false;
+    word.split('').forEach((char, i) => {
+      if (char === letter) {
+        guessed[i] = letter;
+        found = true;
+      }
+    });
+
+    if (!found) attempts--;
+    document.getElementById('word').textContent = guessed.join(' ');
+    const status = document.getElementById('status');
+
+    if (!guessed.includes('_')) {
+      status.textContent = '🎉 Correct! You won!';
+      disableAll();
+    } else if (attempts === 0) {
+      status.textContent = `💀 Out of tries! Word was: ${word}`;
+      disableAll();
+    }
+  }
+
+  function disableAll() {
+    document.querySelectorAll('button').forEach(btn => btn.disabled = true);
+  }
+</script>
+
+</body>
+</html>

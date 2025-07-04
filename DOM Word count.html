@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Letter Counter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f0f0f0;
+    }
+    .container {
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 100%;
+    }
+    #result {
+      margin-top: 15px;
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Letter Counter</h2>
+  <input type="text" id="wordInput" placeholder="Enter a word or sentence">
+  <button onclick="countLetters()">Count Letters</button>
+  <div id="result"></div>
+</div>
+
+<script>
+  function countLetters() {
+    const input = document.getElementById('wordInput').value;
+    
+    // Remove all non-letter characters (ignores spaces, punctuation, digits)
+    const lettersOnly = input.replace(/[^a-zA-Z]/g, '');
+    
+    const count = lettersOnly.length;
+
+    // Show the result in the DOM
+    document.getElementById('result').textContent =
+      `Total letters: ${count}`;
+  }
+</script>
+
+</body>
+</html>

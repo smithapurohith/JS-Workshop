@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Events Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .box {
+      width: 200px;
+      height: 100px;
+      background-color: #90caf9;
+      margin-bottom: 15px;
+      line-height: 100px;
+      text-align: center;
+      border-radius: 10px;
+    }
+    input, button, select, textarea {
+      display: block;
+      margin: 10px 0;
+      padding: 8px;
+      width: 250px;
+    }
+    #log {
+      margin-top: 20px;
+      padding: 10px;
+      background: #f1f8e9;
+      height: 120px;
+      overflow-y: auto;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<h2>DOM Events Demonstration</h2>
+
+<!-- Mouse Events -->
+<div class="box" id="mouseBox">Mouse Events</div>
+
+<!-- Keyboard Events -->
+<input type="text" id="keyInput" placeholder="Type something (keyboard events)" />
+
+<!-- Form Events -->
+<select id="dropdown">
+  <option value="">Select an option</option>
+  <option value="apple">Apple</option>
+  <option value="banana">Banana</option>
+</select>
+
+<textarea id="textArea" placeholder="Focus, blur, input event"></textarea>
+
+<form id="sampleForm">
+  <input type="text" placeholder="Form input" required />
+  <button type="submit">Submit</button>
+</form>
+
+<!-- Log Output -->
+<div id="log"><strong>Event Log:</strong></div>
+
+<script>
+  const log = (msg) => {
+    const logBox = document.getElementById("log");
+    logBox.innerHTML += `<div>➤ ${msg}</div>`;
+    logBox.scrollTop = logBox.scrollHeight;
+  };
+
+  // Window Events
+  window.addEventListener('load', () => log("Window Loaded"));
+  window.addEventListener('resize', () => log("Window Resized"));
+  window.addEventListener('scroll', () => log("Window Scrolled"));
+
+  // Mouse Events
+  const mouseBox = document.getElementById("mouseBox");
+  mouseBox.addEventListener('click', () => log("Mouse Clicked"));
+  mouseBox.addEventListener('dblclick', () => log("Mouse Double Clicked"));
+  mouseBox.addEventListener('mouseover', () => log("Mouse Over"));
+  mouseBox.addEventListener('mouseout', () => log("Mouse Out"));
+  mouseBox.addEventListener('mousedown', () => log("Mouse Button Down"));
+  mouseBox.addEventListener('mouseup', () => log("Mouse Button Up"));
+
+  // Keyboard Events
+  const keyInput = document.getElementById("keyInput");
+  keyInput.addEventListener('keydown', (e) => log(`Key Down: ${e.key}`));
+  keyInput.addEventListener('keyup', (e) => log(`Key Up: ${e.key}`));
+  keyInput.addEventListener('keypress', (e) => log(`Key Pressed: ${e.key}`));
+
+  // Form/Input Events
+  const dropdown = document.getElementById("dropdown");
+  const textArea = document.getElementById("textArea");
+
+  dropdown.addEventListener('change', () => log(`Dropdown changed to: ${dropdown.value}`));
+  textArea.addEventListener('input', () => log("Textarea input event"));
+  textArea.addEventListener('focus', () => log("Textarea focused"));
+  textArea.addEventListener('blur', () => log("Textarea blurred"));
+
+  const form = document.getElementById("sampleForm");
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    log("Form submitted");
+  });
+</script>
+
+</body>
+</html>

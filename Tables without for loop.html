@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multiplication Tables (No For Loop)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background: #f4f4f4;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin-top: 10px;
+      width: 100%;
+    }
+    #output {
+      margin-top: 20px;
+      white-space: pre-wrap;
+      font-family: monospace;
+      background: #e3f2fd;
+      padding: 15px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Multiplication Tables Generator</h2>
+  <input type="number" id="start" placeholder="Enter start number">
+  <input type="number" id="end" placeholder="Enter end number">
+  <button onclick="generateTables()">Generate Tables</button>
+  <div id="output"></div>
+</div>
+
+<script>
+  function generateTables() {
+    const start = parseInt(document.getElementById("start").value);
+    const end = parseInt(document.getElementById("end").value);
+    const output = document.getElementById("output");
+    output.textContent = "";
+
+    if (isNaN(start) || isNaN(end)) {
+      output.textContent = "Please enter valid numbers.";
+      return;
+    }
+
+    let current = start;
+
+    function printTable(num) {
+      let i = 1;
+      let result = `Table of ${num}:\n`;
+
+      while (i <= 10) {
+        result += `${num} × ${i} = ${num * i}\n`;
+        i++;
+      }
+
+      output.textContent += result + "\n";
+    }
+
+    function recursiveGenerate(current) {
+      if (current > end) return;
+      printTable(current);
+      setTimeout(() => recursiveGenerate(current + 1), 100); // slight delay for smooth DOM updates
+    }
+
+    recursiveGenerate(current);
+  }
+</script>
+
+</body>
+</html>
